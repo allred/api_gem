@@ -2,6 +2,11 @@
 
 A wrapper for a particular API.
 
+The idea here is to try and transparently return response objects to the caller as much as possible, in order to allow full access to the resulting data.
+
+Methods that require an unique identifier will also accept a "src" url, which will be parsed to extract the id(s) needed.
+
+See the Usage Examples section below for details.
 
 ## Installation
 
@@ -19,7 +24,7 @@ Or install it yourself as:
 
     $ gem install api_gem
 
-## Usage
+## Usage Examples
 
 ```ruby
 require 'api_gem'
