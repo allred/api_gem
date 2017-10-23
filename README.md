@@ -26,14 +26,17 @@ require 'api_gem'
 
 ENV['api_gem_username'] = 'your.username@example.com'
 ENV['api_gem_password'] = 'your.password'
+
 client = ApiGem::Client.new
 list_name = "Urgent #{rand(99999)}"
 response = client.create_list({list: {name: list_name}})
 puts [CREATE_LIST: response]
+
 lists = JSON.parse(client.get_all_lists.body)
 src = lists.fetch('lists').first.fetch('src')
 response = client.update_list(src, {list: {name: "foo #{rand(99999)}"}})
 puts [UPDATE_LIST: response]
+
 response = client.create_item(src, {item: {name: "this be an item"}})
 puts [CREATE_ITEM: response]
 
@@ -42,6 +45,7 @@ puts [GET_LIST: list]
 item_src = list.fetch('items').first.fetch('src')
 response = client.finish_item(nil, nil, item_src)
 puts [FINISH_ITEM: response]
+
 puts [GET_LIST: JSON.parse(client.get_list(src).body)]
 response = client.delete_item(nil, nil, item_src)
 puts [DELETE_ITEM: response]
@@ -52,6 +56,7 @@ lists.each do |l|
   res = client.delete_list(src)
   puts [DELETE_LIST: res, src: src]
 end
+
 lists = JSON.parse(client.get_all_lists.body).fetch('lists')
 puts [GET_ALL_LISTS: lists]
 ```
